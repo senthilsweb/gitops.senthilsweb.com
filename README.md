@@ -48,3 +48,6 @@ kubectl get all -o wide
 kubectl get po -o wide 
 kind delete cluster --name zypress-cluster
 ```
+
+## References
+* [how-to-reference-a-local-volume-in-kind-kubernetes-in-docker](https://stackoverflow.com/questions/62694361/how-to-reference-a-local-volume-in-kind-kubernetes-in-docker)
