@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zypress-nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zypress-nginx
+  template:
+    metadata:
+      labels:
+        app: zypress-nginx
+    spec:
+      volumes:
+      - name: www
+        persistentVolumeClaim:
+          claimName: zypress-pvc
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
