@@ -15,7 +15,7 @@ spec:
         app: notifier-api
     spec:
       containers:
-      - name: api.notifier
+      - name: notifier
         image: senthilsweb/notifier:418df79
         env:
           - name: NODE_NAME
