@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notifier-api-server
+  namespace: zypress-app
   labels:
     app: notifier-api-server
 spec:

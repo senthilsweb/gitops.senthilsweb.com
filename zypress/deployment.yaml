@@ -34,4 +34,4 @@ spec:
               fieldPath: spec.nodeName
         volumeMounts:
         - name: www
-          mountPath: /usr/share/nginx/html
+          mountPath: /usr/share/nginx/html  # path inside the container

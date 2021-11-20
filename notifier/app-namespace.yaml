@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: zypress-app
+  labels:
+    name: zypress-app
