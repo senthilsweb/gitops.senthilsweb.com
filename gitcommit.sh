@@ -8,4 +8,4 @@ fi
 git commit -m "$str"
 git branch -M main
 #git remote add origin 
-Git push -u origin main
+git push -u origin main

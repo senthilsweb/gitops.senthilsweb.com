@@ -42,6 +42,20 @@ sudo kubectl port-forward svc/nginx-http 80:80
 
 ```
 kubectl cluster-info
+
+kubectl -n argocd get all
+
+kubectl -n argocd edit svc argocd-server
+
+# Check the nodes with kubectl
+kubectl get nodes -o wide
+
+# Check the namespace 
+kubectl get namespaces
+
+# Get pods
+kubectl get pods -n [namespace]
+
 kubectl get pv
 kubectl get pvc
 kubectl get all -o wide 
@@ -51,3 +65,6 @@ kind delete cluster --name zypress-cluster
 
 ## References
 * [how-to-reference-a-local-volume-in-kind-kubernetes-in-docker](https://stackoverflow.com/questions/62694361/how-to-reference-a-local-volume-in-kind-kubernetes-in-docker)
+
+kubectl -n argocd port-forward service/argocd-server 8080:80
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
