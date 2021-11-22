@@ -16,7 +16,7 @@ spec:
         app: notifier-web-server
     spec:
       containers:
-      - name: notifier
+      - name: zyvue
         image: senthilsweb/zyvue:latest
         ports:
         - containerPort: 80

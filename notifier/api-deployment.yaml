@@ -16,7 +16,7 @@ spec:
         app: notifier-api-server
     spec:
       containers:
-      - name: notifier
+      - name: zygo
         image: senthilsweb/zygo:latest
         env:
           - name: NODE_NAME

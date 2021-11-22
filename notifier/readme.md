@@ -36,7 +36,10 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 kubectl get pods -n zypress-app
 
 # Port forward web application
-kubectl port-forward svc/notifier-api-service 3000:80
+kubectl port-forward -n zypress-app svc/notifier-web-service 6000:3000
+
+# Port forward api server
+kubectl port-forward -n zypress-app svc/notifier-api-service 5000:3000
 ```
 
 ## Cluster commands
