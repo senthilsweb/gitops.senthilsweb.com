@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifier-web-server
+  namespace: zypress-app
+  labels:
+    app: notifier-web-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notifier-web-server
+  template:
+    metadata:
+      labels:
+        app: notifier-web-server
+    spec:
+      containers:
+      - name: notifier
+        image: senthilsweb/zyvue:latest
+        ports:
+        - containerPort: 80

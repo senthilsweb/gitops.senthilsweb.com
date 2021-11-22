@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: notifier
-        image: senthilsweb/notifier:418df79
+        image: senthilsweb/zygo:latest
         env:
           - name: NODE_NAME
             valueFrom:
