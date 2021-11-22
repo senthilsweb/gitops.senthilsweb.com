@@ -1,6 +1,7 @@
 #Introduction
 
 
+
 ## Create Kind Cluster
 ```
 # Create a kubernetes cluster of 1 control plane and 2 worker nodes
@@ -33,6 +34,9 @@ kubectl -n argocd port-forward service/argocd-server 8080:80
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
 #
+kubectl get all -n zypress-app  -o wide
+
+#
 kubectl get pods -n zypress-app
 
 # Port forward web application
@@ -40,6 +44,19 @@ kubectl port-forward -n zypress-app svc/notifier-web-service 6000:3000
 
 # Port forward api server
 kubectl port-forward -n zypress-app svc/notifier-api-service 5000:3000
+
+# ssh into pod
+kubectl -n zypress-app exec -it notifier-web-server-6b84d68b59-jwmq9 -c zyvue -- sh
+```
+
+### Miscellaneous
+
+Use the `service-name`:`port` to connect with the service
+
+## Install `curl`
+
+```
+apk --no-cache add curl
 ```
 
 ## Cluster commands

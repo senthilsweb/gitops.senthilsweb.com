@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: zyvue
-        image: senthilsweb/zyvue:ac77647
+        image: senthilsweb/zyvue:latest
         ports:
         - containerPort: 3000 #
