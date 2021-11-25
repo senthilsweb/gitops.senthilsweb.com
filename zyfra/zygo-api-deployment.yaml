@@ -7,6 +7,9 @@ metadata:
     app: zygo
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: zygo
   template:
     metadata:
       labels:
