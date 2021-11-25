@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: zyvue-web
+        app: zyvue
     spec:
       containers:
       - name: zyvue
