@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zyvue-web
+  namespace: zyfra
+  labels:
+    app: zyvue
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: zyvue-web
+    spec:
+      containers:
+      - name: zyvue
+        image: senthilsweb/zyvue:latest
+        ports:
+        - containerPort: 3000

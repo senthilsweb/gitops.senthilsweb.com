@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: zyfra
+  name: zyvue-service
+spec:
+  ports:
+  - name: http
+    port: 3000        # port exposed outside ClusterIP
+    targetPort: 3000  # port exposed by Pod (should match container port in the deployment manifest)
+  selector:
+    app: zyvue

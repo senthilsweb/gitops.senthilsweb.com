@@ -36,6 +36,7 @@ Port Forward localhost:80 to containerport:80
 
 ```
 sudo kubectl port-forward svc/nginx-http 80:80
+sudo kubectl port-forward svc/notifier-api 4000:3000
 ```
 
 ### Miscellaneous Commands
@@ -61,6 +62,9 @@ kubectl get pvc
 kubectl get all -o wide 
 kubectl get po -o wide 
 kind delete cluster --name zypress-cluster
+kubectl patch ns metallb-system -p '{"metadata":{"finalizers":null}}'
+kubectl get namespace metallb-system -o json > tmp.json
+
 ```
 
 ## References
@@ -68,3 +72,6 @@ kind delete cluster --name zypress-cluster
 
 kubectl -n argocd port-forward service/argocd-server 8080:80
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+
+kubectl Port Forward localhost:4000 to containerport:3000

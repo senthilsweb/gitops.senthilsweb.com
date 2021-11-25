@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: zyfra
+  name: zygo-service
+spec:
+  ports:
+  - name: http
+    port: 3000        # Default port used by the image
+    targetPort: 3000  # port exposed by Pod
+  selector:
+    app: zygo         # points to the depoyment with the app named "zygo"
