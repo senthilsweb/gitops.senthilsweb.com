@@ -51,12 +51,8 @@ kubectl port-forward -n zyfra svc/notifier-web-service 3000:3000
 kubectl port-forward -n zyfra svc/notifier-api-service 5000:3000
 
 # ssh into pod
-kubectl -n zyfra exec -it notifier-web-server-5cd6cb9995-4fjht -- sh
+kubectl -n zyfra exec -it zyvue-web-78f788d8d7-hh2w4 -- sh
 
-
-# metallb install by manifest [install by manifest](https://metallb.universe.tf/installation/)
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
 
 # Find the address pool to be used by loadbalancers
 docker network inspect -f '{{.IPAM.Config}}' kind
@@ -71,7 +67,7 @@ kubectl patch svc <svc-name> -n <namespace> -p '{"spec": {"type": "LoadBalancer"
 ### Miscellaneous
 
 Use the `service-name`:`port` to connect with the service
-
+ 
 ```
 #install curl
 apk --no-cache add curl
