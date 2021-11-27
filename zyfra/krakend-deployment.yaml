@@ -37,4 +37,4 @@ spec:
     port: 8080        # Default port used by the image
     targetPort: 8080  # port exposed by Pod
   selector:
-    app: krakend         # points to the depoyment with the app named "krakend"
+    app: krakend         # points to the depoyment with the app named "krakend" config
