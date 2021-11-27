@@ -6,7 +6,7 @@ metadata:
   labels:
     app: gotrue
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: gotrue
@@ -19,44 +19,44 @@ spec:
       - name: gotrue
         image: senthilsweb/gotrue:latest
         env:
-        - name: GOTRUE_DB_DRIVER
-          value: postgres
-        - name: GOTRUE_API_PORT
-          value: 3000
-        - name: API_EXTERNAL_URL
-          value: http://gotrue-service:3000
-        - name: DATABASE_URL
-          value: postgres://zypress_user:zypress_pwd@18.189.3.157:5432/zypress_db
-        - name: GOTRUE_JWT_SECRET
-          value: "CHANGE-THIS! VERY IMPORTANT!"
-        - name: GOTRUE_JWT_EXP
-          value: 3600
-        - name: GOTRUE_JWT_AUD
-          value: authenticated
-        - name: GOTRUE_JWT_DEFAULT_GROUP_NAME
-          value: authenticated
-        - name: GOTRUE_JWT_ADMIN_ROLES
-          value: "supabase_admin,service_role"
-        - name: GOTRUE_API_HOST
-          value: 0.0.0.0
-        - name: GOTRUE_SITE_URL
-          value: "http://example.com"
-        - name: GOTRUE_MAILER_AUTOCONFIRM
-          value: true
-        - name: GOTRUE_EXTERNAL_EMAIL_ENABLED
-          value: true
-        - name: GOTRUE_SMTP_SENDER_NAME
-          value: "John Smith"
-        - name: GOTRUE_SMTP_HOST
-          value: smtp.mailgun.org
-        - name: GOTRUE_SMTP_PORT
-          value: 587
-        - name: GOTRUE_SMTP_USER
-          value: 
-        - name: GOTRUE_SMTP_PASS
-          value: 
-        - name: GOTRUE_SMTP_ADMIN_EMAIL
-          value: 
+          - name: GOTRUE_DB_DRIVER
+            value: postgres
+          - name: GOTRUE_API_PORT
+            value: 3000
+          - name: API_EXTERNAL_URL
+            value: http://gotrue-service:3000
+          - name: DATABASE_URL
+            value: postgres://zypress_user:zypress_pwd@18.189.3.157:5432/zypress_db
+          - name: GOTRUE_JWT_SECRET
+            value: "CHANGE-THIS! VERY IMPORTANT!"
+          - name: GOTRUE_JWT_EXP
+            value: 3600
+          - name: GOTRUE_JWT_AUD
+            value: authenticated
+          - name: GOTRUE_JWT_DEFAULT_GROUP_NAME
+            value: authenticated
+          - name: GOTRUE_JWT_ADMIN_ROLES
+            value: "supabase_admin,service_role"
+          - name: GOTRUE_API_HOST
+            value: 0.0.0.0
+          - name: GOTRUE_SITE_URL
+            value: "http://example.com"
+          - name: GOTRUE_MAILER_AUTOCONFIRM
+            value: true
+          - name: GOTRUE_EXTERNAL_EMAIL_ENABLED
+            value: true
+          - name: GOTRUE_SMTP_SENDER_NAME
+            value: "John Smith"
+          - name: GOTRUE_SMTP_HOST
+            value: smtp.mailgun.org
+          - name: GOTRUE_SMTP_PORT
+            value: 587
+          - name: GOTRUE_SMTP_USER
+            value: 
+          - name: GOTRUE_SMTP_PASS
+            value: 
+          - name: GOTRUE_SMTP_ADMIN_EMAIL
+            value: 
         ports:
         - containerPort: 3000
 ---
