@@ -26,11 +26,11 @@ spec:
         - name: API_EXTERNAL_URL
           value: http://gotrue-service:3000
         - name: DATABASE_URL
-          value: "postgres://zypress_user:zypress_pwd@18.189.3.157:5432/zypress_db"
+          value: postgres://zypress_user:zypress_pwd@18.189.3.157:5432/zypress_db
         - name: GOTRUE_JWT_SECRET
           value: "CHANGE-THIS! VERY IMPORTANT!"
         - name: GOTRUE_JWT_EXP
-          value: "3600"
+          value: 3600
         - name: GOTRUE_JWT_AUD
           value: authenticated
         - name: GOTRUE_JWT_DEFAULT_GROUP_NAME
@@ -48,15 +48,15 @@ spec:
         - name: GOTRUE_SMTP_SENDER_NAME
           value: "John Smith"
         - name: GOTRUE_SMTP_HOST
-          value: "smtp.mailgun.org"
+          value: smtp.mailgun.org
         - name: GOTRUE_SMTP_PORT
           value: 587
         - name: GOTRUE_SMTP_USER
-          value: ""
+          value: 
         - name: GOTRUE_SMTP_PASS
-          value: ""
+          value: 
         - name: GOTRUE_SMTP_ADMIN_EMAIL
-          value: ""
+          value: 
         ports:
         - containerPort: 3000
 ---
