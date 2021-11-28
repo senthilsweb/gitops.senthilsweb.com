@@ -38,19 +38,19 @@ spec:
           - name: GOTRUE_JWT_ADMIN_ROLES
             value: "supabase_admin,service_role"
           - name: GOTRUE_API_HOST
-            value: 0.0.0.0
+            value: "0.0.0.0"
           - name: GOTRUE_SITE_URL
             value: "http://example.com"
           - name: GOTRUE_MAILER_AUTOCONFIRM
-            value: true
+            value: "true"
           - name: GOTRUE_EXTERNAL_EMAIL_ENABLED
-            value: true
+            value: "true"
           - name: GOTRUE_SMTP_SENDER_NAME
             value: "John Smith"
           - name: GOTRUE_SMTP_HOST
             value: smtp.mailgun.org
           - name: GOTRUE_SMTP_PORT
-            value: 587
+            value: "587"
           - name: GOTRUE_SMTP_USER
             value: 
           - name: GOTRUE_SMTP_PASS
