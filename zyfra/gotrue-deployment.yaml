@@ -22,7 +22,7 @@ spec:
           - name: GOTRUE_DB_DRIVER
             value: postgres
           - name: GOTRUE_API_PORT
-            value: 3000
+            value: "3000"
           - name: API_EXTERNAL_URL
             value: http://gotrue-service:3000
           - name: DATABASE_URL
@@ -30,7 +30,7 @@ spec:
           - name: GOTRUE_JWT_SECRET
             value: "CHANGE-THIS! VERY IMPORTANT!"
           - name: GOTRUE_JWT_EXP
-            value: 3600
+            value: "3600"
           - name: GOTRUE_JWT_AUD
             value: authenticated
           - name: GOTRUE_JWT_DEFAULT_GROUP_NAME
@@ -71,4 +71,4 @@ spec:
     port: 3000        # Default port used by the image
     targetPort: 3000  # port exposed by Pod
   selector:
-    app: gotrue         # points to the depoyment with the app named "gotrue" config
+    app: gotrue       # points to the depoyment with the app named "gotrue" config

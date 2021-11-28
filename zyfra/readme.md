@@ -66,8 +66,10 @@ kubectl patch svc <svc-name> -n <namespace> -p '{"spec": {"type": "LoadBalancer"
 
 ### Miscellaneous
 
+kind delete cluster --name zyfra-cluster
+
 Use the `service-name`:`port` to connect with the service
- 
+krakend run -c /etc/krakend/krakend.json -d 
 ```
 #install curl
 apk --no-cache add curl
