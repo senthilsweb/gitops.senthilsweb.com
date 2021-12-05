@@ -17,7 +17,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: gotrue-service
+            name: zyvue-service
             port:
               number: 3000
       - pathType: Prefix
