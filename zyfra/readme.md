@@ -1,7 +1,5 @@
 #Introduction
 
-
-
 ## Create Kind Cluster
 ```
 # Create a kubernetes cluster with 1control plane and 2 worker nodes
@@ -38,82 +36,23 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 # Get nginx pods status (wait for 3 ~ 5 mins depending on your internet)
 kubectl get pods -n ingress-nginx
 
-#
-kubectl get all -n zyfra  -o wide
-
-#
-kubectl get pods -n zyfra
-
-# Port forward web application
-kubectl port-forward -n zyfra svc/notifier-web-service 3000:3000
-
-# Port forward api server
-kubectl port-forward -n zyfra svc/notifier-api-service 5000:3000
-
-# ssh into pod
-kubectl -n zyfra exec -it zyvue-web-78f788d8d7-hh2w4 -- sh
-
-
-# Find the address pool to be used by loadbalancers
-docker network inspect -f '{{.IPAM.Config}}' kind
-
-# Metallb configuration using Layer 2 Configuration 
-kubectl create -f /pathto/metallb-configmap.yaml
-
-kubectl patch svc <svc-name> -n <namespace> -p '{"spec": {"type": "LoadBalancer"}}
-
 ```
+
+### Install zyfra app from Agro Web GUI
+
+![App Creation](https://res.cloudinary.com/nathansweb/image/upload/v1640230282/ArgoCD/argocd_app_create.png)
+
 
 ### Miscellaneous
 
+```
+#
 kind delete cluster --name zyfra-cluster
-
-Use the `service-name`:`port` to connect with the service
-krakend run -c /etc/krakend/krakend.json -d 
+#
+kubectl get all -n zyfra  -o wide
+#
+kubectl get pods -n zyfra
 ```
-#install curl
-apk --no-cache add curl
-
-#List all ports in use
-lsof -i -P | grep LISTEN
-
-# Kill a port
-kill -9 <pid>
-
-```
-
-## Install `curl`
-
-```
-apk --no-cache add curl
-```
-
-## Cluster commands
-
-The initial password for the admin account is auto-generated and stored as clear text in the field password in a secret named argocd-initial-admin-secret in your Argo CD installation namespace. You can simply retrieve this password using kubectl:
-
-```
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-```
-
-Port forwad to access argocd frontend
-
-```
-kubectl -n argocd port-forward service/argocd-server 8080:80
-```
-
-
-
-## Application commands
-
-
-
-Port forwad to access api server
-
-```
-sudo kubectl port-forward svc/notifier-api-service 4000:3000
-```
-
 
 ## References
 
