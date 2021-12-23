@@ -4,9 +4,15 @@ metadata:
   namespace: zyfra
   name: zyvue-service
 spec:
+  # Make the service externally visible via the node
+  type: NodePort 
   ports:
   - name: http
-    port: 3000        # port exposed outside ClusterIP
-    targetPort: 3000  # port exposed by Pod (should match container port in the deployment manifest)
+    # Which port on the node is the service available through?
+    nodePort: 30081
+    # Inside the cluster, what port does the service expose?
+    port: 3000        
+    # port exposed by Pod (should match container port in the deployment manifest)
+    targetPort: 3000  
   selector:
     app: zyvue

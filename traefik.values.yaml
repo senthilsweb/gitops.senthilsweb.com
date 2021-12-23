@@ -1,0 +1,33 @@
+---
+providers:
+  kubernetesCRD:
+    namespaces:
+      - default
+      - traefik
+  kubernetesIngress:
+    namespaces:
+      - default
+      - traefik
+
+ports:
+  traefik:
+    expose: true
+    nodePort: 32090
+  web:
+    nodePort: 32080
+  websecure:
+    nodePort: 32443
+  zyweb:
+    expose: true
+    port: 3000
+    nodePort: 30081
+  zyvue:
+    expose: true
+    port: 3000
+    nodePort: 30082
+  krakend:
+    expose: true
+    port: 3000
+    nodePort: 30083
+service:
+  type: NodePort

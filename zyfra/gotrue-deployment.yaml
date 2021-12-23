@@ -68,7 +68,11 @@ metadata:
 spec:
   ports:
   - name: http
-    port: 3000        # Default port used by the image
-    targetPort: 3000  # port exposed by Pod
+    # Which port on the node is the service available through?
+    nodePort: 30084
+    # Inside the cluster, what port does the service expose?
+    port: 3000        
+    # port exposed by Pod (should match container port in the deployment manifest)
+    targetPort: 3000  
   selector:
     app: gotrue       # points to the depoyment with the app named "gotrue" config
