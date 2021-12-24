@@ -17,17 +17,22 @@ ports:
     nodePort: 32080
   websecure:
     nodePort: 32443
-  zyweb:
-    expose: true
-    port: 3000
-    nodePort: 30081
-  zyvue:
-    expose: true
-    port: 3000
-    nodePort: 30082
   krakend:
     expose: true
-    port: 3000
+    port: 8080
+    nodePort: 30080
+  zygo:
+    expose: true
+    port: 8081
+    nodePort: 30081
+  gotrue:
+    expose: true
+    port: 8082
+    nodePort: 30082
+  zyvue:
+    expose: true
+    port: 8083
     nodePort: 30083
+    
 service:
   type: NodePort

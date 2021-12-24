@@ -32,13 +32,15 @@ metadata:
   namespace: zyfra
   name: krakend-service # this name will be used to resolve hostname between containers e.g. http://krakend-service:3000
 spec:
+  # Make the service externally visible via the node
+  type: NodePort 
   ports:
   - name: http
     # Which port on the node is the service available through?
-    nodePort: 30083
+    nodePort: 30080
     # Inside the cluster, what port does the service expose?
     port: 8080        
     # port exposed by Pod (should match container port in the deployment manifest)
     targetPort: 8080  
   selector:
-    app: krakend         # points to the depoyment with the app named "krakend" config
+    app: krakend    # points to the depoyment with the app named "krakend" config

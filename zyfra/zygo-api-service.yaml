@@ -4,10 +4,12 @@ metadata:
   namespace: zyfra
   name: zygo-service # this name will be used to resolve hostname between containers e.g. http://zygo-service:3000
 spec:
+  # Make the service externally visible via the node
+  type: NodePort
   ports:
   - name: http
     # Which port on the node is the service available through?
-    nodePort: 30082
+    nodePort: 30081
     # Inside the cluster, what port does the service expose?
     port: 3000        
     # port exposed by Pod (should match container port in the deployment manifest)
