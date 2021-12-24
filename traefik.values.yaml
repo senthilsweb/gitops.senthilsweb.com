@@ -20,7 +20,7 @@ ports:
   zyvue:
     expose: true
     port: 8081
-    nodePort: 30081
+    nodePort: 32081
 
 service:
   type: NodePort
