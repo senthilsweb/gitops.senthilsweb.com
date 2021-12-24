@@ -37,7 +37,7 @@ spec:
   ports:
   - name: http
     # Which port on the node is the service available through?
-    nodePort: 30080
+    nodePort: 30081
     # Inside the cluster, what port does the service expose?
     port: 8080        
     # port exposed by Pod (should match container port in the deployment manifest)
