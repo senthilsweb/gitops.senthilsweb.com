@@ -28,6 +28,9 @@ nodes:
   - containerPort: 30083
     hostPort: 8083
     protocol: TCP
+  - containerPort: 30084 #for postgres
+    hostPort: 5432
+    protocol: TCP
   extraMounts:                                                                                                                                                                                          
     - hostPath: /Users/nathansweb/mnt/data
       containerPath: /mnt/data
