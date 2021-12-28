@@ -28,3 +28,6 @@ nodes:
   - containerPort: 30083
     hostPort: 8083
     protocol: TCP
+  extraMounts:                                                                                                                                                                                          
+    - hostPath: /Users/nathansweb/mnt/data
+      containerPath: /mnt/data
