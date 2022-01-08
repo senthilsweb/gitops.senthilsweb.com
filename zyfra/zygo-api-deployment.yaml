@@ -26,17 +26,17 @@ spec:
           - name: REDIS_URI
             valueFrom:
               secretKeyRef:
-                name: postgres-secret-config
+                name: zyfra-secret-config
                 key: redis_uri
           - name: SLACK_TOKEN
             valueFrom:
               secretKeyRef:
-                name: postgres-secret-config
+                name: zyfra-secret-config
                 key: slack_token
           - name: SLACK_CHANNEL
             valueFrom:
               secretKeyRef:
-                name: postgres-secret-config
+                name: zyfra-secret-config
                 key: slack_channel
         ports:
         - containerPort: 3000

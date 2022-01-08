@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: zyfra
+  name: grafana-service
+  labels:
+    app: grafana
+spec:
+  type: NodePort
+  ports:
+  - name: tcp
+   # Which port on the node is the service available through?
+    nodePort: 30087
+    # Inside the cluster, what port does the service expose?
+    port: 3000
+    # port exposed by Pod (should match container port in the deployment manifest)
+    targetPort: 3000
+  selector:
+    app: grafana

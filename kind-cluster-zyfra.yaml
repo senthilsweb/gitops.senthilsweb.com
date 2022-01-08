@@ -31,6 +31,15 @@ nodes:
   - containerPort: 30084 #for postgres
     hostPort: 5432
     protocol: TCP
+  - containerPort: 30085 #for minio
+    hostPort: 9001
+    protocol: TCP
+  - containerPort: 30086 #for redis
+    hostPort: 6379
+    protocol: TCP
+  - containerPort: 30087 #for grafana
+    hostPort: 3001
+    protocol: TCP
   extraMounts:                                                                                                                                                                                          
     - hostPath: /Users/nathansweb/mnt/data
       containerPath: /mnt/data

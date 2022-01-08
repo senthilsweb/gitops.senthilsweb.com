@@ -1,5 +1,5 @@
 alias k=kubectl
-k apply -f postgres-secrets.yaml
+k apply -f zyfra-secrets.yaml
 k apply -f pv.yaml
 k apply -f pvc.yaml
 k apply -f postgres-deployment.yaml
