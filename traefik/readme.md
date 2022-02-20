@@ -34,6 +34,19 @@ https://whoami.nathansweb.com
 chmod 600 /opt/traefik/letsencrypt/acme.json
 ```
 
+# PynamicDNS setup
+
+PynamicDNS - Dynamic DNS With Raspberry Pi, Python and AWS
+
+```
+python3 ~/PynamicDNS/PynamicDNS.py <DNS Record> <Hosted Zone ID>
+
+e.g.
+python3 ~/PynamicDNS/PynamicDNS.py grafana.nathansweb.com Z1QPPN7T5EUAF7
+```
+
+- [PynamicDNS](https://tynick.com/blog/03-16-2020/pynamicdns-dynamic-dns-with-raspberry-pi-python-and-aws/)
+
 ## Miscellaneous commands
 
 - `docker container ls`
