@@ -1,12 +1,12 @@
 # gitops.senthilsweb.com
+
 Repository to keep my public containers and kubernetes assets following gitops principles
 
 ## About the application
 
-* KinD is used to setup local Kubernetes cluster with 1 Master and 2 Worker Nodes
-* A simple static website hosted in nginx server pods with 2 replicaset, the source code folder `/usr/share/nginx/html` of nginx is mounted to the host filesystem using kubernetes `PersistentVolume` and `PersistentVolumeClaim`.
-* External access of the application is enabled thru Kubernetes `service` and `port-forwarding`
-
+- KinD is used to setup local Kubernetes cluster with 1 Master and 2 Worker Nodes
+- A simple static website hosted in nginx server pods with 2 replicaset, the source code folder `/usr/share/nginx/html` of nginx is mounted to the host filesystem using kubernetes `PersistentVolume` and `PersistentVolumeClaim`.
+- External access of the application is enabled thru Kubernetes `service` and `port-forwarding`
 
 ## Installation
 
@@ -51,7 +51,7 @@ kubectl -n argocd edit svc argocd-server
 # Check the nodes with kubectl
 kubectl get nodes -o wide
 
-# Check the namespace 
+# Check the namespace
 kubectl get namespaces
 
 # Get pods
@@ -59,8 +59,8 @@ kubectl get pods -n [namespace]
 
 kubectl get pv
 kubectl get pvc
-kubectl get all -o wide 
-kubectl get po -o wide 
+kubectl get all -o wide
+kubectl get po -o wide
 kind delete cluster --name zypress-cluster
 kubectl patch ns metallb-system -p '{"metadata":{"finalizers":null}}'
 kubectl get namespace metallb-system -o json > tmp.json
@@ -68,10 +68,10 @@ kubectl get namespace metallb-system -o json > tmp.json
 ```
 
 ## References
-* [how-to-reference-a-local-volume-in-kind-kubernetes-in-docker](https://stackoverflow.com/questions/62694361/how-to-reference-a-local-volume-in-kind-kubernetes-in-docker)
+
+- [how-to-reference-a-local-volume-in-kind-kubernetes-in-docker](https://stackoverflow.com/questions/62694361/how-to-reference-a-local-volume-in-kind-kubernetes-in-docker)
 
 kubectl -n argocd port-forward service/argocd-server 8080:80
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-
 
 kubectl Port Forward localhost:4000 to containerport:3000
