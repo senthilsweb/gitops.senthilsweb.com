@@ -1,4 +1,12 @@
-# Traefik docker setup procedure
+# Traefik docker setup
+
+## Pre-requisite
+
+- Valid domain name
+- aws credentials i.e. access and secret access key
+- Python3
+
+## Setup procedure
 
 - clone files in `/opt`
 - cd to `traefik` root folder
@@ -34,7 +42,7 @@ https://whoami.nathansweb.com
 chmod 600 /opt/traefik/letsencrypt/acme.json
 ```
 
-# PynamicDNS setup
+## PynamicDNS setup
 
 PynamicDNS - Dynamic DNS With Raspberry Pi, Python and AWS
 
