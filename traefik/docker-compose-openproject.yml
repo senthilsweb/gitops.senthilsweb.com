@@ -1,0 +1,129 @@
+version: "3.7"
+
+networks:
+  traefik-public:
+    external: true
+
+volumes:
+  opdata:
+  pgdata:
+
+x-op-restart-policy: &restart_policy
+  restart: unless-stopped
+x-op-image: &image
+  image: openproject/community:${TAG:-12}
+x-op-app: &app
+  <<: *image
+  <<: *restart_policy
+  environment:
+    RAILS_CACHE_STORE: "memcache"
+    OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
+    OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
+    #DATABASE_URL: "${DATABASE_URL:-postgres://postgres:openproject_pwd@your-host/openproject?pool=20&encoding=unicode&reconnect=true}"
+    RAILS_MIN_THREADS: 4
+    RAILS_MAX_THREADS: 16
+    # set to true to enable the email receiving feature. See ./docker/cron for more options
+    IMAP_ENABLED: "${IMAP_ENABLED:-false}"
+    OPENPROJECT_DIRECT__UPLOADS: "false"
+    OPENPROJECT_ATTACHMENTS__STORAGE: "fog"
+    OPENPROJECT_FOG_DIRECTORY: "zynomi-openproject"
+    OPENPROJECT_FOG_CREDENTIALS_PROVIDER: "AWS"
+    OPENPROJECT_FOG_CREDENTIALS_AWS__ACCESS__KEY__ID: "your-key" 
+    OPENPROJECT_FOG_CREDENTIALS_AWS__SECRET__ACCESS__KEY: "your-secret" 
+    OPENPROJECT_FOG_CREDENTIALS_REGION: "us-east-1" # Must be the region that you created your bucket in
+  volumes:
+    - "opdata:/var/openproject/assets"
+
+services:
+  db:
+    image: postgres:13
+    <<: *restart_policy
+    stop_grace_period: "3s"
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: p4ssw0rd
+      POSTGRES_DB: openproject
+    networks:
+      - traefik-public
+    ports:
+      - "5432:5432"
+
+  cache:
+    image: memcached
+    <<: *restart_policy
+    networks:
+      - traefik-public
+
+  proxy:
+    <<: *image
+    <<: *restart_policy
+    command: "./docker/prod/proxy"
+    #ports:
+      #- "${PORT:-3000}:80"
+    environment:  
+      APP_HOST: web
+      OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openproject.tls=true"
+      - "traefik.http.routers.openproject.rule=Host(`projects.zynomi.com`)"
+      - "traefik.http.routers.openproject.entrypoints=websecure"
+      - "traefik.http.routers.openproject.tls.certresolver=myresolver"
+    depends_on:
+      - web
+    networks:
+      - traefik-public
+
+  web:
+    <<: *app
+    command: "./docker/prod/web"
+    container_name: openproject
+    networks:
+      - traefik-public
+    depends_on:
+      - db
+      - cache
+      - seeder
+    labels:
+      - autoheal=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}/health_checks/default"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+
+  autoheal:
+    image: willfarrell/autoheal:1.2.0
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: autoheal
+
+  worker:
+    <<: *app
+    command: "./docker/prod/worker"
+    networks:
+      - traefik-public
+    depends_on:
+      - db
+      - cache
+      - seeder
+
+  cron:
+    <<: *app
+    command: "./docker/prod/cron"
+    networks:
+      - traefik-public
+    depends_on:
+      - db
+      - cache
+      - seeder
+
+  seeder:
+    <<: *app
+    command: "./docker/prod/seeder"
+    restart: on-failure
+    networks:
+      - traefik-public

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zybes-ui
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: zybes-ui
+  template:
+    metadata:
+      labels:
+        app: zybes-ui
+    spec:
+      containers:
+        - image: zynomi/zynomi-ui-web:latest
+          name: zybes-ui
+          ports:
+            - containerPort: 3000
