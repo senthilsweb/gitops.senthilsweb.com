@@ -11,5 +11,7 @@ spec:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: zybes-svc
-              servicePort: 80
+              service:
+                name: zybes-svc
+                port:
+                  number: 80
