@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Ingress
 metadata:
   name: zybes-ingress
@@ -11,5 +11,5 @@ spec:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: zybes-ui
+              serviceName: zybes-svc
               servicePort: 80
