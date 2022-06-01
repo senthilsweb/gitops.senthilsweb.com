@@ -1,10 +1,18 @@
-/usr/local/bin/k3s-uninstall.sh
+## Install K3s Kubernetes cluster
+
+Install K3s with execute permission
+
+```
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-sudo nano /var/lib/rancher/k3s/server/manifests/traefik.yaml
+```
 
-## Enable Dashboard
+Enable Traefik Dashboard by creating custom `traefik-config.yaml` file as below
 
+```
 nano /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+```
+
+`traefik-config.yaml`
 
 ```
 apiVersion: helm.cattle.io/v1
@@ -24,20 +32,39 @@ spec:
         enabled: true
 ```
 
+Restart the `K3s` and redeploy `traefik` for the changes to take effect
+
+```
 sudo systemctl restart k3s
 kubectl -n kube-system scale deploy traefik --replicas 0
 kubectl -n kube-system scale deploy traefik --replicas 1
+```
 
-# Install ArgoCD
+Un-install k3s
 
+```
+/usr/local/bin/k3s-uninstall.sh
+```
+
+## Install ArgoCD (ARM64 compatible version to run in Raspberry pi)
+
+```
 kubectl create namespace argocd
+```
+
+```
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/release-2.4/manifests/install.yaml
+```
 
-or
-
+```
 kubectl apply -n argocd -f https://github.com/argoproj/argo-cd/blob/v2.4.0-rc1/manifests/install.yaml
+```
 
+Change ArgoCD server as `LoadBalancer`
+
+```
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
 
 ### Access ArgoCD dashboard
 
