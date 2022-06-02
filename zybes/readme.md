@@ -6,6 +6,32 @@ Install K3s with execute permission
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 ```
 
+```
+systemctl status k3s.service
+
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+
+## UFW firewall rules
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow 6443/tcp
+ufw allow 2222/tcp
+ufw enable
+systemctl enable --now ufw
+```
+
+## Install Kubectl for arm64
+
+```
+curl -LO "https://dl.k8s.io/release/v1.24.0/bin/darwin/arm64/kubectl"
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+export PATH=$PATH:/usr/local/git/bin:/usr/local/bin
+```
+
 Enable Traefik Dashboard by creating custom `traefik-config.yaml` file as below
 
 ```
