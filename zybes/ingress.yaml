@@ -5,7 +5,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: true
 spec:
   rules:
     - host: app.rasp.zynomi.com
@@ -18,5 +17,3 @@ spec:
                 name: zybes-svc
                 port:
                   number: 80
-tls:
-  - secretName: supersecret
