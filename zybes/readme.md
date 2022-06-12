@@ -58,6 +58,8 @@ spec:
         enabled: true
 ```
 
+kubectl patch svc service/traefik -n kube-system -p '{"spec": {"type": "LoadBalancer", "externalIPs":["132.145.165.107"]}}'
+
 Restart the `K3s` and redeploy `traefik` for the changes to take effect
 
 ```
@@ -65,6 +67,8 @@ sudo systemctl restart k3s
 kubectl -n kube-system scale deploy traefik --replicas 0
 kubectl -n kube-system scale deploy traefik --replicas 1
 ```
+
+Access `Traefik Dashboard` at `http://[ip-address]:9000/dashboard/`
 
 Un-install k3s
 
@@ -83,16 +87,19 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/re
 ```
 
 ```
-kubectl apply -n argocd -f https://github.com/argoproj/argo-cd/blob/v2.4.0-rc1/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.0-rc1/manifests/install.yaml
 ```
 
 Change ArgoCD server as `LoadBalancer`
 
 ```
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer", "externalIPs":["132.145.165.107"]}}'
 ```
 
 ### Access ArgoCD dashboard
+
+Access dashboard at `https://[ip-address]:32464/`
 
 kubectl get all -n argocd
 
@@ -106,4 +113,6 @@ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
 # Reference
 
-https://issuemode.com/issues/argoproj/argo-cd/86332687
+- https://issuemode.com/issues/argoproj/argo-cd/86332687
+
+- https://stackoverflow.com/questions/68565048/how-to-expose-traefik-v2-dashboard-in-k3d-k3s-via-configuration
