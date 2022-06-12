@@ -14,3 +14,20 @@ spec:
           port: 80
   tls:
     certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroute
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`app.rasp.zynomi.com`)
+      kind: Rule
+      services:
+        - name: zybes-svc
+          port: 80
+      middlewares:
+        - name: https-redirect
