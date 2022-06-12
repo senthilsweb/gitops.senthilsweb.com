@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: whoami
+  name: whoamitls
   namespace: default
 spec:
   entryPoints:
@@ -18,7 +18,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingressroute
+  name: whoami
   namespace: default
 spec:
   entryPoints:
