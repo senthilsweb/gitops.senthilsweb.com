@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`app.rasp.zynomi.com`) && PathPrefix(`/`)
+    - match: Host(`app.rasp.zynomi.com`)
       kind: Rule
       services:
         - name: zybes-svc
