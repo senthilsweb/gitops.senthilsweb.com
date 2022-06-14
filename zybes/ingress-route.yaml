@@ -12,5 +12,3 @@ spec:
       services:
         - name: zybes-svc
           port: 80
-      middlewares:
-        - name: https-redirect
