@@ -116,3 +116,60 @@ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 - https://issuemode.com/issues/argoproj/argo-cd/86332687
 
 - https://stackoverflow.com/questions/68565048/how-to-expose-traefik-v2-dashboard-in-k3d-k3s-via-configuration
+
+```
+kubectl create namespace cert-manager
+
+curl -sL  https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml | sed -r 's/(image:.*):(v.*)$/\1-arm:\2/g' > cert-manager-arm.yaml
+
+kubectl apply -f cert-manager-arm.yaml
+
+kubectl --namespace cert-manager get pods
+```
+
+sudo nano letsencrypt-issuer-staging.yaml
+
+```
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: senthilsweb@gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    # Enable the HTTP-01 challenge provider
+    solvers:
+    - http01:
+        ingress:
+          ingressTemplate:
+            metadata:
+              annotations:
+                kubernetes.io/ingress.class: traefik
+```
+
+```
+kubectl apply -f ./letsencrypt-issuer-staging.yaml
+
+sudo nano le-test-certificate.yaml
+```
+
+```
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k3s-app-rasp-zynomi-com
+  namespace: default
+spec:
+  secretName: k3s-app-rasp-zynomi-com-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+  - app.rasp.zynomi.com
+```
