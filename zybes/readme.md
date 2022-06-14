@@ -111,11 +111,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
-# Reference
-
-- https://issuemode.com/issues/argoproj/argo-cd/86332687
-
-- https://stackoverflow.com/questions/68565048/how-to-expose-traefik-v2-dashboard-in-k3d-k3s-via-configuration
+## Optional - Creating SSL Certificate using Letsencrypt
 
 ```
 kubectl create namespace cert-manager
@@ -127,22 +123,22 @@ kubectl apply --validate=false -f cert-manager-arm.yaml
 kubectl --namespace cert-manager get pods
 ```
 
-sudo nano letsencrypt-issuer-staging.yaml
+sudo nano letsencrypt-issuer-production.yaml
 
 ```
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging
+  name: letsencrypt-production
 spec:
   acme:
     # The ACME server URL
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
     # Email address used for ACME registration
     email: senthilsweb@gmail.com
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: letsencrypt-staging
+      name: letsencrypt-production
     # Enable the HTTP-01 challenge provider
     solvers:
     - http01:
@@ -154,28 +150,19 @@ spec:
 ```
 
 ```
-kubectl apply -f ./letsencrypt-issuer-staging.yaml
-
-sudo nano le-test-certificate.yaml
+kubectl apply -f ./letsencrypt-issuer-production.yaml
 ```
 
-```
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: k3s-app-rasp-zynomi-com
-  namespace: default
-spec:
-  secretName: k3s-app-rasp-zynomi-com-tls
-  issuerRef:
-    name: letsencrypt-staging
-    kind: ClusterIssuer
-  dnsNames:
-  - app.rasp.zynomi.com
-```
+### Miscellaneous (Not required)
 
 ```
-kubectl apply -f le-test-certificate.yaml
-```
-
 sudo kubectl port-forward pod/traefik-7f9778594c-cx2sk -n kube-system 80:80 --address 0.0.0.0
+```
+
+# Reference
+
+- https://issuemode.com/issues/argoproj/argo-cd/86332687
+
+- https://stackoverflow.com/questions/68565048/how-to-expose-traefik-v2-dashboard-in-k3d-k3s-via-configuration
+
+- https://carpie.net/articles/installing-and-using-cert-manager-with-k3s
