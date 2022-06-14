@@ -3,12 +3,13 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: k3s-app-rasp-zynomi-com
-  namespace: default
+  namespace: cert-manager
 spec:
   secretName: k3s-app-rasp-zynomi-com-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
+  commonName: app.rasp.zynomi.com
   dnsNames:
     - app.rasp.zynomi.com
 ---

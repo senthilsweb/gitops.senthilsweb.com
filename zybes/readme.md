@@ -130,6 +130,7 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-production
+  namespace: default
 spec:
   acme:
     # The ACME server URL
