@@ -122,7 +122,7 @@ kubectl create namespace cert-manager
 
 curl -sL  https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml | sed -r 's/(image:.*):(v.*)$/\1-arm:\2/g' > cert-manager-arm.yaml
 
-kubectl apply -f cert-manager-arm.yaml
+kubectl apply --validate=false -f cert-manager-arm.yaml
 
 kubectl --namespace cert-manager get pods
 ```
@@ -173,3 +173,9 @@ spec:
   dnsNames:
   - app.rasp.zynomi.com
 ```
+
+```
+kubectl apply -f le-test-certificate.yaml
+```
+
+sudo kubectl port-forward pod/traefik-7f9778594c-cx2sk -n kube-system 80:80 --address 0.0.0.0
