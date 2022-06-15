@@ -10,10 +10,10 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
     group: cert-manager.io
-  commonName: "*.zynomi.com"
+  #commonName: "*.zynomi.com"
   dnsNames:
     - "app.rasp.zynomi.com"
-    - "*.zynomi.com"
+    #- "*.zynomi.com"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
