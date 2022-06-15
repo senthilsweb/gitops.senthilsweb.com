@@ -1,39 +1,24 @@
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
+apiVersion: extensions/v1beta1
+kind: Ingress
 metadata:
-  name: k3s-app-rasp-zynomi-com
-  namespace: default
-spec:
-  secretName: k3s-app-rasp-zynomi-com-tls
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-    group: cert-manager.io
-  commonName: "*.zynomi.com"
-  dnsNames:
-    - "app.rasp.zynomi.com"
-    - "*.zynomi.com"
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ingressroutetls
+  name: zybes-ingress
   namespace: default
   annotations:
-    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`app.rasp.zynomi.com`)
-      kind: Rule
-      services:
-        - name: zybes-svc
-          port: 80
   tls:
-    secretName: k3s-app-rasp-zynomi-com-tls
-    certResolver: default
+    - secretName: app-rasp-zynomi-com-dev-tls
+      hosts:
+        - app.rasp.zynomi.com
+  rules:
+    - host: app.rasp.zynomi.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: zybes-svc
+              servicePort: 80
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
