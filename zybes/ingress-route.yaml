@@ -17,5 +17,6 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: zybes-svc
-              servicePort: 80
+              services:
+                - name: whoami
+                  port: 80
