@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zybes-ingress
@@ -15,7 +15,10 @@ spec:
     - host: app.rasp.zynomi.com
       http:
         paths:
-          - path: /
-            backend:
-              serviceName: zybes-svc
-              servicePort: 80
+          - backend:
+              service:
+                name: zybes-svc
+                port:
+                  numer: 80
+            path: /
+            pathType: Prefix
