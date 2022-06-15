@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
-    - secretName: app-rasp-zynomi-com-tls
+    - secretName: prod-issuer-account-key
       hosts:
         - app.rasp.zynomi.com
   rules:
