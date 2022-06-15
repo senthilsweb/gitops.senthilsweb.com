@@ -13,6 +13,7 @@ spec:
   commonName: "*.zynomi.com"
   dnsNames:
     - app.rasp.zynomi.com
+    - *.zynomi.com
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
