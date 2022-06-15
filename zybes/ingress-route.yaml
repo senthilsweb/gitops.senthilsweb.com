@@ -17,9 +17,12 @@ spec:
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
+acme.cert-manager.io/http01-edit-in-place: "true"
 metadata:
   name: ingressroutetls
   namespace: default
+  annotations:
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   entryPoints:
     - websecure
