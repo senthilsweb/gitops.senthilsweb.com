@@ -1,24 +1,49 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: zybes-ingress
+  name: k3s-app-rasp-zynomi-com
   namespace: default
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  secretName: k3s-app-rasp-zynomi-com-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
+  dnsNames:
+    - "app.rasp.zynomi.com"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetls
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`app.rasp.zynomi.com`)
+      kind: Rule
+      services:
+        - name: zybes-svc
+          port: 80
   tls:
-    - secretName: prod-issuer-account-key
-      hosts:
-        - app.rasp.zynomi.com
-  rules:
-    - host: app.rasp.zynomi.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: zybes-svc
-                port:
-                  number: 80
-            path: /
-            pathType: Prefix
+    secretName: k3s-app-rasp-zynomi-com-tls
+    #certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroute
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`app.rasp.zynomi.com`)
+      kind: Rule
+      services:
+        - name: zybes-svc
+          port: 80
+      middlewares:
+        - name: https-redirect
