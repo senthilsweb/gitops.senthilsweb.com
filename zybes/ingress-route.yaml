@@ -9,7 +9,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-    group: cert-manager.io
+    #group: cert-manager.io
   commonName: "*.zynomi.com"
   dnsNames:
     - "app.rasp.zynomi.com"
